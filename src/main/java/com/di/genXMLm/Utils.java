@@ -19,7 +19,7 @@ public final class Utils {
 		if (firstNameList.isEmpty()) {
 			loadFirstNames();
 		}
-		int number = (int) Math.round(Math.random() * firstNameList.size() - 1);
+		int number = (int) Math.round(Math.random() * (firstNameList.size() - 1));
 		return firstNameList.get(number);
 
 	}
@@ -28,7 +28,7 @@ public final class Utils {
 		if (lastNameList.isEmpty()) {
 			loadLastNames();
 		}
-		int number = (int) Math.round(Math.random() * firstNameList.size() - 1);
+		int number = (int) Math.round(Math.random() * (firstNameList.size() - 1));
 		return lastNameList.get(number);
 
 	}

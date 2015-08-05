@@ -7,6 +7,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,7 +32,20 @@ public class App {
 		bookStoreType = objectFactory.createBookStoreType();
 
 		generateData();
-		
+		logger.info("Generowanie danych zakonczone");
+
+		saveToXML("wynik.xml");
+		logger.info("Zapis zakonczony");
+	}
+
+	static void generateData() throws IOException, DatatypeConfigurationException {
+		Generators.generateAuthors(objectFactory, bookStoreType, setup);
+		Generators.generateCustomers(objectFactory, bookStoreType, setup);
+		Generators.generateBooks(objectFactory, bookStoreType, setup);
+		Generators.generateOrders(objectFactory, bookStoreType, setup);
+	}
+
+	static void saveToXML(String fileName) throws JAXBException, FileNotFoundException {
 		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
 		JAXBElement<BookStoreType> element = objectFactory.createBookStore(bookStoreType);
 		Marshaller marshaller = context.createMarshaller();
@@ -39,13 +53,5 @@ public class App {
 
 		FileOutputStream os = new FileOutputStream(new File("wynik.xml"));
 		marshaller.marshal(element, os);
-	}
-	
-	static void generateData() throws IOException, DatatypeConfigurationException
-	{
-		Generators.generateAuthors(objectFactory, bookStoreType, setup);
-		Generators.generateCustomers(objectFactory, bookStoreType, setup);
-		Generators.generateBooks(objectFactory, bookStoreType, setup);
-		Generators.generateOrders(objectFactory, bookStoreType, setup);
 	}
 }

@@ -15,15 +15,11 @@ public final class Utils {
 	private static ArrayList<String> firstNameList = new ArrayList<String>();
 	private static ArrayList<String> lastNameList = new ArrayList<String>();
 
-	public Utils() {
-		System.out.println("konstruktor");
-	}
-
 	public static String randomFirstName() throws IOException {
 		if (firstNameList.isEmpty()) {
 			loadFirstNames();
 		}
-		int number = (int) Math.round(Math.random() * firstNameList.size()-1);
+		int number = (int) Math.round(Math.random() * firstNameList.size() - 1);
 		return firstNameList.get(number);
 
 	}
@@ -32,7 +28,7 @@ public final class Utils {
 		if (lastNameList.isEmpty()) {
 			loadLastNames();
 		}
-		int number = (int) Math.round(Math.random() * firstNameList.size()-1);
+		int number = (int) Math.round(Math.random() * firstNameList.size() - 1);
 		return lastNameList.get(number);
 
 	}
@@ -84,18 +80,17 @@ public final class Utils {
 		}
 		return sb.toString();
 	}
-	
+
 	static HashMap<String, Integer> generateSetup(int authorsAmmount) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("authors", authorsAmmount);
 		map.put("customers", 5 * authorsAmmount);
 		map.put("books", 10 * authorsAmmount);
 		map.put("order", 25 * authorsAmmount);
-		return map;		
+		return map;
 	}
-	
-	static XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException
-	{
+
+	static XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException {
 		XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar();
 		Random rand = new Random();
 		cal.setYear(1950 + rand.nextInt(64));

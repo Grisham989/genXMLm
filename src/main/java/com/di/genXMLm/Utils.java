@@ -4,7 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 public final class Utils {
 	private static ArrayList<String> firstNameList = new ArrayList<String>();
@@ -18,17 +23,17 @@ public final class Utils {
 		if (firstNameList.isEmpty()) {
 			loadFirstNames();
 		}
-		int number = (int) Math.round(Math.random() * firstNameList.size())-1;
+		int number = (int) Math.round(Math.random() * firstNameList.size()-1);
 		return firstNameList.get(number);
 
 	}
 
 	public static String randomLastName() throws IOException {
-		if (firstNameList.isEmpty()) {
+		if (lastNameList.isEmpty()) {
 			loadLastNames();
 		}
-		int number = (int) Math.round(Math.random() * firstNameList.size())-1;
-		return firstNameList.get(number);
+		int number = (int) Math.round(Math.random() * firstNameList.size()-1);
+		return lastNameList.get(number);
 
 	}
 
@@ -78,6 +83,27 @@ public final class Utils {
 			sb.append(chars.charAt(rand.nextInt(chars.length())));
 		}
 		return sb.toString();
-
+	}
+	
+	static HashMap<String, Integer> generateSetup(int authorsAmmount) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("authors", authorsAmmount);
+		map.put("customers", 5 * authorsAmmount);
+		map.put("books", 10 * authorsAmmount);
+		map.put("order", 25 * authorsAmmount);
+		return map;		
+	}
+	
+	static XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException
+	{
+		XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar();
+		Random rand = new Random();
+		cal.setYear(1950 + rand.nextInt(64));
+		cal.setMonth(rand.nextInt(11) + 1);
+		cal.setDay(rand.nextInt(30) + 1);
+		cal.setHour(rand.nextInt(23) + 1);
+		cal.setMinute(rand.nextInt(59) + 1);
+		cal.setSecond(rand.nextInt(59) + 1);
+		return cal;
 	}
 }

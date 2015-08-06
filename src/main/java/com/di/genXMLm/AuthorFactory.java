@@ -10,7 +10,8 @@ public final class AuthorFactory {
 		authorType.setLastName(Utils.randomLastName());
 		authorType.setPseudonym(Utils.randomString(10, false));
 
-		String code = Utils.randomNumber(15, true);
+		int numberLength = Integer.toString(authorNumber).length();
+		String code = Utils.randomNumber(32-numberLength, true);
 		StringBuilder sb = new StringBuilder(code);
 		sb.append(authorNumber);
 		authorType.setCode(sb.toString());

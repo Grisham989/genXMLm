@@ -4,14 +4,15 @@ public final class BookFactory {
 	static BookType makeBook(ObjectFactory objectFactory, int bookNumber, String authorCode) {
 		BookType bookType = objectFactory.createBookType();
 		bookType.setAuthorCode(authorCode);
-
-		String code = Utils.randomNumber(32, true);
+		
+		int numberLength = Integer.toString(bookNumber).length();
+		String code = Utils.randomNumber(32-numberLength, true);
 		StringBuilder sb = new StringBuilder(code);
 		sb.append(bookNumber);
 		bookType.setCode(sb.toString());
 		bookType.setDescription(Utils.randomString(255, false));
 
-		String isbn = Utils.randomNumber(32, true);
+		String isbn = Utils.randomNumber(32-numberLength, true);
 		sb = new StringBuilder(isbn);
 		sb.append(bookNumber);
 		bookType.setISBN(sb.toString());
